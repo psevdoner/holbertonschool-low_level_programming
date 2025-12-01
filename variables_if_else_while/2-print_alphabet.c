@@ -1,22 +1,18 @@
-#include <stdlib.h>
-#include <time.h>
 #include <stdio.h>
-/* more headers goes there */
 
-/* betty style doc for function main goes there */
+/**
+ * main - Prints the alphabet in lowercase
+ *
+ * Return: Always 0
+ */
 int main(void)
 {
-	int n;
-
-	srand(time(0));
-	n = rand() - RAND_MAX / 2;
-	int ch;
+	int ch; /* bütün dəyişənləri funksiyanın əvvəlində elan edirik */
 
 	for (ch = 'a'; ch <= 'z'; ch++)
 		putchar(ch);
 	putchar('\n');
 
-
-	/* your code goes there */
 	return (0);
 }
+
