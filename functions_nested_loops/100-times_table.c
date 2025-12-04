@@ -1,8 +1,8 @@
-#include <stdio.h>
+#include "main.h"
 
 /**
  * print_times_table - prints the n times table, starting with 0
- * @n: the number to generate the times table for
+ * @n: the number to generate the table for
  *
  * Return: void
  */
@@ -20,19 +20,48 @@ void print_times_table(int n)
 			result = i * j;
 
 			if (j == 0)
-				printf("%d", result);
+			{
+				print_number(result);
+			}
 			else
 			{
-				printf(", ");
+				_putchar(',');
+				_putchar(' ');
 				if (result < 10)
-					printf("  %d", result);
+				{
+					_putchar(' ');
+					_putchar(' ');
+					print_number(result);
+				}
 				else if (result < 100)
-					printf(" %d", result);
+				{
+					_putchar(' ');
+					print_number(result);
+				}
 				else
-					printf("%d", result);
+				{
+					print_number(result);
+				}
 			}
 		}
-		printf("\n");
+		_putchar('\n');
 	}
 }
+
+/**
+ * print_number - prints an integer using only _putchar
+ * @n: number to print
+ */
+void print_number(int n)
+{
+	if (n >= 100)
+	{
+		_putchar((n / 100) + '0');
+		_putchar(((n / 10) % 10) + '0');
+		_putchar((n % 10) + '0');
+	}
+	else if (n >= 10)
+	{
+		_putchar((n / 10) + '0');
+		_putchar((n % 10) + '0');
 
