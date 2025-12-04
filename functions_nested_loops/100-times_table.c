@@ -1,5 +1,7 @@
 #include "main.h"
 
+void print_number(int n); /* prototip */
+
 /**
  * print_times_table - prints the n times table, starting with 0
  * @n: the number to generate the table for
@@ -51,6 +53,8 @@ void print_times_table(int n)
 /**
  * print_number - prints an integer using only _putchar
  * @n: number to print
+ *
+ * Return: void
  */
 void print_number(int n)
 {
@@ -64,4 +68,10 @@ void print_number(int n)
 	{
 		_putchar((n / 10) + '0');
 		_putchar((n % 10) + '0');
+	}
+	else
+	{
+		_putchar(n + '0');
+	}
+}
 
