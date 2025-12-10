@@ -22,18 +22,25 @@ void print_buffer(char *b, int size)
 
 		for (j = 0; j < 10; j++)
 		{
+			if (j % 2 == 0 && j != 0)
+				printf(" ");
 			if (i + j < size)
-				printf("%02x", b[i + j] & 0xff);
+				printf("%02x", (unsigned char)b[i + j]);
 			else
 				printf("  ");
-			if (j % 2)
-				printf(" ");
 		}
 
 		printf(" ");
 
 		for (j = 0; j < 10 && i + j < size; j++)
-			printf("%c", (b[i + j] >= 32 && b[i + j] <= 126) ? b[i + j] : '.');
+		{
+			unsigned char c = b[i + j];
+
+			if (c >= 32 && c <= 126)
+				printf("%c", c);
+			else
+				printf(".");
+		}
 
 		printf("\n");
 	}
