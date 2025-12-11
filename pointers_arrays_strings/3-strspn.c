@@ -3,32 +3,36 @@
 /**
  * _strspn - Gets the length of a prefix substring
  * @s: Pointer to the string to search
- * @accept: Pointer to the string containing accepted characters
+ * @accept: Pointer to string containing accepted characters
  *
- * Return: Number of bytes in initial segment of s consisting only of accept bytes
+ * Return: Number of bytes in initial segment of s
+ *         consisting only of accept bytes
  */
 unsigned int _strspn(char *s, char *accept)
 {
 	unsigned int count = 0;
-	int i, j, found;
+	int i, found;
 
-	for (i = 0; s[i]; i++)
+	while (*s)
 	{
 		found = 0;
-		
-		for (j = 0; accept[j]; j++)
+
+		/* Check if current character is in accept string */
+		for (i = 0; accept[i]; i++)
 		{
-			if (s[i] == accept[j])
+			if (*s == accept[i])
 			{
 				found = 1;
 				break;
 			}
 		}
 
+		/* If character not found in accept, stop counting */
 		if (!found)
 			break;
 
 		count++;
+		s++;
 	}
 
 	return (count);
