@@ -9,38 +9,33 @@
  */
 int wildcmp(char *s1, char *s2)
 {
-	/* 1. Her İki Dize de Sona Erdiyse: Mükemmel Eşleşme */
+	/* 1. Uğur Əsas Hal: Hər iki sətir eyni anda bitibsə, 1 qaytar. */
 	if (*s1 == '\0' && *s2 == '\0')
 	{
 		return (1);
 	}
 
-	/* 2. s2'de '*' Karakteri Kontrolü */
-	if (*s2 == '*')
-	{
-		if (*(s2 + 1) == '*')
-		{
-			return (wildcmp(s1, s2 + 1));
-		}
-
-		/* A. '*' karakteri bittiyse (s2'deki sonraki karakter null ise) */
-		if (*(s2 + 1) == '\0')
-		{
-			return (1);
-		}
-
-		/* B. İki Yönlü Rekürsiyon (s2 + 1 veya s1 + 1): */
-		/* '*' boş dizeyi temsil eder (s2'de ilerle) VEYA */
-		/* '*' bir karakteri temsil eder (s1'de ilerle, s2'de kal) */
-		return (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2));
-	}
-
-	/* 3. Normal Karakter Eşleşmesi */
+	/* 2. Normal Simvol Eşleşməsi */
 	if (*s1 == *s2)
 	{
 		return (wildcmp(s1 + 1, s2 + 1));
 	}
 
-	/* 4.  (s1 bittiğinde s2'de '*' dışında karakter varsa da dahil) */
+	/* 3. s2-də '*' Karakteri Kontrolü */
+	if (*s2 == '*')
+	{
+		/* A. Ardıcıl '*'ları atlama (Rekursiv yolla) */
+		/* Eğer növbəti simvol da '*'dırsa, s2'ni bir daha irəlilət. */
+		if (*(s2 + 1) == '*')
+		{
+			return (wildcmp(s1, s2 + 1));
+		}
+
+		/* B. Jokerin Nəyi Təmsil Etdiyini Yoxla (İki Rekursiv Yol) */
+		/* Yol 1: '*' boş sətirdir. s2'də irəlilə (s2 + 1) VEYA */
+		return (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2));
+	}
+
+	/* 4. Başarısız Hal: Simvollar uyğun gəlmir VƏ s2-də '*' yoxdur. */
 	return (0);
 }
