@@ -18,29 +18,29 @@ int wildcmp(char *s1, char *s2)
 	/* 2. s2'de '*' Karakteri Kontrolü */
 	if (*s2 == '*')
 	{
-		/* Ardışık '*' karakterlerini atla */
-		while (*(s2 + 1) == '*')
+		if (*(s2 + 1) == '*')
 		{
-			s2++;
+			return (wildcmp(s1, s2 + 1));
 		}
 
-		/* Yol A: '*' boş dizeyi temsil eder (s2'de ilerle) VEYA */
-		/* Yol B: '*' bir veya daha fazla karakteri temsil eder (s1'de ilerle) */
-		return (wildcmp(s1, s2 + 1) || (*s1 != '\0' && wildcmp(s1 + 1, s2)));
+		/* A. '*' karakteri bittiyse (s2'deki sonraki karakter null ise) */
+		if (*(s2 + 1) == '\0')
+		{
+			return (1);
+		}
+
+		/* B. İki Yönlü Rekürsiyon (s2 + 1 veya s1 + 1): */
+		/* '*' boş dizeyi temsil eder (s2'de ilerle) VEYA */
+		/* '*' bir karakteri temsil eder (s1'de ilerle, s2'de kal) */
+		return (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2));
 	}
 
-	/* 3. s1 bitti, ama s2 bitmediyse (ve s2'de '*' yok): Başarısızlık */
-	if (*s1 == '\0' && *s2 != '\0')
-	{
-		return (0);
-	}
-
-	/* 4. Normal Karakter Eşleşmesi */
+	/* 3. Normal Karakter Eşleşmesi */
 	if (*s1 == *s2)
 	{
 		return (wildcmp(s1 + 1, s2 + 1));
 	}
 
-	/* 5. Genel Başarısızlık */
+	/* 4.  (s1 bittiğinde s2'de '*' dışında karakter varsa da dahil) */
 	return (0);
 }
