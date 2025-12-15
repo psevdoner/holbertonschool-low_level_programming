@@ -6,6 +6,7 @@ int _putchar(char c);
 
 /* İstenen fonksiyonun prototipi */
 int _pow_recursion(int x, int y);
+int _sqrt_recursion(int n);
 int factorial(int n);
 int _strlen_recursion(char *s);
 void _puts_recursion(char *s);
