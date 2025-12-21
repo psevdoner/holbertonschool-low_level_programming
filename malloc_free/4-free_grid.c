@@ -1,27 +1,37 @@
 #include "main.h"
-#include <stdlib.h>
+#include <stdlib.h> /* <-- Bu mütləq ən başda olmalıdır */
 
 /**
- * free_grid - frees a 2 dimensional grid previously created by alloc_grid
- * @grid: the address of the two dimensional grid
+ * alloc_grid - returns a pointer to a 2 dimensional array of integers.
+ * @width: width of the grid
  * @height: height of the grid
  *
- * Return: void
+ * Return: pointer to 2D array, or NULL on failure
  */
-void free_grid(int **grid, int height)
+int **alloc_grid(int width, int height)
 {
-	int i;
+	int **grid;
+	int i, j;
 
-	/* Əgər massiv mövcud deyilsə, heç nə etmirik */
-	if (grid == NULL || height <= 0)
-		return;
+	if (width <= 0 || height <= 0)
+		return (NULL);
 
-	/* 1. Hər bir sətiri (yaddaşın daxili hissələrini) azad edirik */
+	grid = malloc(sizeof(int *) * height);
+	if (grid == NULL)
+		return (NULL);
+
 	for (i = 0; i < height; i++)
 	{
-		free(grid[i]);
+		grid[i] = malloc(sizeof(int) * width);
+		if (grid[i] == NULL)
+		{
+			for (; i >= 0; i--)
+				free(grid[i]);
+			free(grid);
+			return (NULL);
+		}
+		for (j = 0; j < width; j++)
+			grid[i][j] = 0;
 	}
-
-	/* 2. Sətir pointerlərini saxlayan əsas massivi azad edirik */
-	free(grid);
+	return (grid);
 }
