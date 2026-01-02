@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "dog.c"
+#include "dog.h"
 
 /**
 *print_dog - struct dog tipindeki deyisenleri cap edir
